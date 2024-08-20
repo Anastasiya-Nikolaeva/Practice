@@ -1,4 +1,5 @@
 from typing import Union
+from datetime import datetime
 
 from src.masks import get_mask_account, get_mask_card_number
 
@@ -7,7 +8,16 @@ def mask_account_card(user_number: Union[str]) -> str:
     """Функция маскировки карт или счетов"""
     if len(user_number.split()[-1]) == 20:
         new_number = get_mask_account(user_number)
-        return f"{user_number[:-20]} {new_number}"
+        result = user_number[:-20] + new_number
     elif len(user_number.split()[-1]) == 16:
         new_number = get_mask_card_number(user_number.split()[-1])
-        return f"{user_number[:-16]} {new_number}"
+        result = user_number[:-16] + new_number
+    return result
+
+
+# def get_date(user_date: Union[str]) -> str:
+#     """Функция получения даты в определенном формате и возвращения в формате ДД.ММ.ГГГГ"""
+#     date_format = datetime.strptime(user_date, '%y-%m-%dT%H:%M:%S:%f')
+#     new_date = date_format.strptime('%d-%m-%y')
+#     return new_date
+# print(get_date(2024-03-11T02:26:18.671407))
