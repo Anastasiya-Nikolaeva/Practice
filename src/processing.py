@@ -1,4 +1,7 @@
-def filter_by_state(dictionaries: list, state: str = "EXECUTED") -> list:
+from typing import Union
+
+
+def filter_by_state(dictionaries: Union[list], state: Union[str] = "EXECUTED") -> list:
     """Функция из списка словарей возвращает новый список словарей,
     у которых ключ state соответствует указанному значению"""
     new_list = []
@@ -12,7 +15,7 @@ def filter_by_state(dictionaries: list, state: str = "EXECUTED") -> list:
     return new_list
 
 
-def sort_by_date(dictionaries: list) -> list:
+def sort_by_date(dictionaries: Union[list]) -> list:
     """Функция сортирующая список по определенному ключу"""
 
     sorted_list = sorted(dictionaries, key=lambda dictionaries: dictionaries["date"], reverse=True)
