@@ -1,6 +1,6 @@
 import pytest
 
-from src.widget import mask_account_card
+from src.widget import get_date, mask_account_card
 
 
 @pytest.mark.parametrize(
@@ -20,4 +20,6 @@ from src.widget import mask_account_card
 def test_mask_account_card(num: str, expected_result: str) -> None:
     assert mask_account_card(num) == expected_result
 
-# Не хватает проверки на формат даты
+
+def test_get_data() -> None:
+    assert get_date("2020-10-10T10:10:10.0") == "10.10.2020"

@@ -1,6 +1,5 @@
 from datetime import datetime
-from typing import Union, Any
-
+from typing import Any, Union
 
 from src.masks import get_mask_card_number
 
@@ -29,11 +28,3 @@ def get_date(user_date: Union[str]) -> Any:
     date_format = datetime.strptime(user_date, "%Y-%m-%dT%H:%M:%S.%f")
     new_date = date_format.strftime("%d.%m.%Y")
     return new_date
-
-#
-#
-#
-# if __name__ == "__main__":
-#     filtered = get_date('2024-03-11')
-#     print(filtered)
-#
