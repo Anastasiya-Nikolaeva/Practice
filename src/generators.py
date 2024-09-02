@@ -31,3 +31,7 @@ def card_number_generator(start: Union[int] = 0, stop: Union[int] = 9) -> str:
     digits = [random.randint(start, stop) for _ in range(16)]
     grouped_string = " ".join("".join(map(str, digits[i: i + 4])) for i in range(0, 16, 4))
     return grouped_string
+
+
+for _ in range(5):
+    print(card_number_generator())
