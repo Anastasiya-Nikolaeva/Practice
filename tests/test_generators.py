@@ -26,12 +26,24 @@ def test_transaction_descriptions(index: int, expected: str) -> Any:
 
 
 def test_card_number_generator() -> Any:
-    result = card_number_generator()
-    # Проверяем, что результат является строкой
-    assert isinstance(result, str), "Результат должен быть строкой"
-    # Проверяем, что строка состоит из 4 групп по 4 цифры
-    groups = result.split()
-    assert len(groups) == 4, "Должно быть 4 группы"
-    for group in groups:
-        assert len(group) == 4, "Каждая группа должна содержать 4 цифры"
-        assert group.isdigit(), "Группа должна содержать только цифры"
+    generator = card_number_generator(start=0, stop=5)
+    expected_numbers = [
+        "0000 0000 0000 0000",
+        "0000 0000 0000 0001",
+        "0000 0000 0000 0002",
+        "0000 0000 0000 0003",
+        "0000 0000 0000 0004"
+    ]
+
+    for expected in expected_numbers:
+        assert next(generator) == expected
+
+    generator = card_number_generator(start=1234567800000000, stop=3)
+    expected_numbers = [
+        "1234 5678 0000 0000",
+        "1234 5678 0000 0001",
+        "1234 5678 0000 0002"
+    ]
+
+    for expected in expected_numbers:
+        assert next(generator) == expected

@@ -1,5 +1,4 @@
-import random
-from typing import Union, Any
+from typing import Any
 
 
 def filter_by_currency(transactions: list[dict], currency: str = "USD") -> Any:
@@ -26,14 +25,14 @@ def transaction_descriptions(transactions: list[dict]) -> Any:
         return "Нет транзакций"
 
 
-def card_number_generator(start: Union[int] = 0, stop: Union[int] = 9, count: int = 1):
-    """Генератор выдает указанное количество номеров банковских карт в формате XXXX XXXX XXXX XXXX"""
-    for _ in range(count):
-        digits = [random.randint(start, stop) for _ in range(16)]
-        grouped_string = " ".join("".join(map(str, digits[i: i + 4])) for i in range(0, 16, 4))
+def card_number_generator(start: int = 0, stop: int = 1) -> str:
+    """Генератор выдает последовательность номеров банковских карт в формате XXXX XXXX XXXX XXXX"""
+    for i in range(stop):
+        new_card_number = start + i
+        formatted_number = "{:016}".format(new_card_number)
+        grouped_string = " ".join(formatted_number[i:i + 4] for i in range(0, 16, 4))
         yield grouped_string
 
-
-generator = card_number_generator(count=5)  # Генерируем 5 номеров карт
-for card_number in generator:
-    print(card_number)
+#
+# for card_number in card_number_generator(1, 5):
+#     print(card_number)
