@@ -23,6 +23,8 @@ def sort_by_date(dictionaries: Any, sort_revers: bool = True) -> Any:
     if dictionaries != [{}]:
         return sorted(dictionaries, key=itemgetter("date"), reverse=sort_revers)
     return "В списке нет элементов"
+
+
 #
 #
 # with pytest.raises(KeyError):
