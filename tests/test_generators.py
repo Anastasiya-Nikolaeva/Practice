@@ -32,18 +32,14 @@ def test_card_number_generator() -> Any:
         "0000 0000 0000 0001",
         "0000 0000 0000 0002",
         "0000 0000 0000 0003",
-        "0000 0000 0000 0004"
+        "0000 0000 0000 0004",
     ]
 
     for expected in expected_numbers:
         assert next(generator) == expected
 
     generator = card_number_generator(start=1234567800000000, stop=3)
-    expected_numbers = [
-        "1234 5678 0000 0000",
-        "1234 5678 0000 0001",
-        "1234 5678 0000 0002"
-    ]
+    expected_numbers = ["1234 5678 0000 0000", "1234 5678 0000 0001", "1234 5678 0000 0002"]
 
     for expected in expected_numbers:
         assert next(generator) == expected
