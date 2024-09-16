@@ -21,6 +21,9 @@ def convert_transaction_to_rub(transaction: Dict[str, Any]) -> float:
     amount = transaction["amount"]
     currency = transaction["currency"]
 
+    if currency == "RUB":
+        return amount
+
     if currency not in ["USD", "EUR"]:
         raise ValueError("Currency not supported for conversion.")
 
@@ -40,7 +43,7 @@ def convert_transaction_to_rub(transaction: Dict[str, Any]) -> float:
 # if __name__ == "__main__":
 #     transaction = {
 #         'amount': 300,
-#         'currency': 'EUR'
+#         'currency': 'RUB'
 #     }
 #
 #     result = convert_transaction_to_rub(transaction)
