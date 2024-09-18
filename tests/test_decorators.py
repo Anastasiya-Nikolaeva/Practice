@@ -1,9 +1,10 @@
 import logging
+import os
 import tempfile
 from typing import Generator
 
 import pytest
-import os
+
 from src.decorators import my_function
 
 

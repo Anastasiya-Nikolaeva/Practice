@@ -21,11 +21,10 @@ def filter_by_state(dictionaries: Iterable[dict], state: Union[str] = "EXECUTED"
 def sort_by_date(dictionaries: Any, sort_revers: bool = True) -> Any:
     """Функция сортирующая список по определенному ключу"""
     if dictionaries != [{}]:
-        return sorted(dictionaries, key=itemgetter("date"), reverse=sort_revers)
+        return sorted(dictionaries, key=itemgetter("data"), reverse=sort_revers)
     return "В списке нет элементов"
 
 
-#
-#
-# with pytest.raises(KeyError):
-#     sort_by_date(KeyError)
+# if __name__ == "__main__":
+#     with pytest.raises(KeyError):
+#         sort_by_date(KeyError)
