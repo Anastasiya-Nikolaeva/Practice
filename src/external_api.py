@@ -10,7 +10,7 @@ API_URL = "https://api.apilayer.com/exchangerates_data/convert?to={to}&from={fro
 API_KEY = os.getenv("API_KEY")
 
 
-def convert_transaction_to_rub(transaction: Dict[str, Any]) -> float:
+def convert_transaction_to_rub(transaction: Dict[str, Any]) -> Any:
     """
     Конвертирует транзакцию в рубли.
 
