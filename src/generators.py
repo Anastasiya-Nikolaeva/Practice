@@ -31,7 +31,7 @@ def card_number_generator(start: int = 0, stop: int = 1) -> Any:
     for i in range(stop):
         new_card_number = start + i
         formatted_number = "{:016}".format(new_card_number)
-        grouped_string = " ".join(formatted_number[i: i + 4] for i in range(0, 16, 4))
+        grouped_string = " ".join(formatted_number[i : i + 4] for i in range(0, 16, 4))
         yield grouped_string
 
 
