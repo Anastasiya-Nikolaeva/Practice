@@ -1,57 +1,57 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from src.main import main  # Импортируем функцию main из вашего основного модуля
+from src.main import main  # РРјРїРѕСЂС‚РёСЂСѓРµРј С„СѓРЅРєС†РёСЋ main РёР· РІР°С€РµРіРѕ РѕСЃРЅРѕРІРЅРѕРіРѕ РјРѕРґСѓР»СЏ
 
 class TestBankTransactions(unittest.TestCase):
 
-    @patch('builtins.input', side_effect=['1', 'EXECUTED', 'да', 'по возрастанию', 'да', 'тест'])
-    @patch('src.dataframe.read_data_csv', return_value=[])  # Имитация функции чтения CSV
-    @patch('src.dataframe.read_data_excel', return_value=[])  # Имитация функции чтения Excel
+    @patch('builtins.input', side_effect=['1', 'EXECUTED', 'РґР°', 'РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ', 'РґР°', 'С‚РµСЃС‚'])
+    @patch('src.dataframe.read_data_csv', return_value=[])  # РРјРёС‚Р°С†РёСЏ С„СѓРЅРєС†РёРё С‡С‚РµРЅРёСЏ CSV
+    @patch('src.dataframe.read_data_excel', return_value=[])  # РРјРёС‚Р°С†РёСЏ С„СѓРЅРєС†РёРё С‡С‚РµРЅРёСЏ Excel
     @patch('src.utils.get_operations_info', return_value=[
         {
             "date": "2023-10-01",
-            "description": "Тестовая транзакция",
+            "description": "РўРµСЃС‚РѕРІР°СЏ С‚СЂР°РЅР·Р°РєС†РёСЏ",
             "operationAmount": {"amount": 1000, "currency": {"name": "RUB"}},
-            "from": "Счет 1",
-            "to": "Счет 2"
+            "from": "РЎС‡РµС‚ 1",
+            "to": "РЎС‡РµС‚ 2"
         }
-    ])  # Имитация получения операций из JSON
-    @patch('src.generators.filter_by_currency', return_value=[])  # Имитация фильтрации по валюте
-    @patch('src.processing.filter_by_state', return_value=[])  # Имитация фильтрации по статусу
-    @patch('src.processing.sort_by_date', return_value=[])  # Имитация сортировки по дате
-    @patch('src.searching.group_by_description', return_value=[])  # Имитация группировки по описанию
-    @patch('src.widget.mask_account_card', side_effect=lambda x: x)  # Имитация маскирования счета
+    ])  # РРјРёС‚Р°С†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ РѕРїРµСЂР°С†РёР№ РёР· JSON
+    @patch('src.generators.filter_by_currency', return_value=[])  # РРјРёС‚Р°С†РёСЏ С„РёР»СЊС‚СЂР°С†РёРё РїРѕ РІР°Р»СЋС‚Рµ
+    @patch('src.processing.filter_by_state', return_value=[])  # РРјРёС‚Р°С†РёСЏ С„РёР»СЊС‚СЂР°С†РёРё РїРѕ СЃС‚Р°С‚СѓСЃСѓ
+    @patch('src.processing.sort_by_date', return_value=[])  # РРјРёС‚Р°С†РёСЏ СЃРѕСЂС‚РёСЂРѕРІРєРё РїРѕ РґР°С‚Рµ
+    @patch('src.searching.group_by_description', return_value=[])  # РРјРёС‚Р°С†РёСЏ РіСЂСѓРїРїРёСЂРѕРІРєРё РїРѕ РѕРїРёСЃР°РЅРёСЋ
+    @patch('src.widget.mask_account_card', side_effect=lambda x: x)  # РРјРёС‚Р°С†РёСЏ РјР°СЃРєРёСЂРѕРІР°РЅРёСЏ СЃС‡РµС‚Р°
     def test_main_function(self, mock_mask_account_card, mock_group_by_description, mock_sort_by_date,
                            mock_filter_by_state, mock_filter_by_currency, mock_get_operations_info,
                            mock_read_data_excel, mock_read_data_csv):
-        # Патчим функцию print для проверки выводимых сообщений
+        # РџР°С‚С‡РёРј С„СѓРЅРєС†РёСЋ print РґР»СЏ РїСЂРѕРІРµСЂРєРё РІС‹РІРѕРґРёРјС‹С… СЃРѕРѕР±С‰РµРЅРёР№
         with patch('builtins.print') as mock_print:
-            main()  # Запускаем основную функцию
-            # Проверяем, что выводится сообщение о начале печати транзакций
-            mock_print.assert_any_call("Распечатываю итоговый список транзакций...")
-            # Проверяем, что выводится количество операций
-            mock_print.assert_any_call("Всего банковских операций в выборке: 1")
-            # Проверяем, что выводится информация о транзакции
-            mock_print.assert_any_call("\n1. 01.10.2023 Тестовая транзакция\nСчет 1 -> Счет 2\n"
-                                        "Сумма: 1000 RUB")
+            main()  # Р—Р°РїСѓСЃРєР°РµРј РѕСЃРЅРѕРІРЅСѓСЋ С„СѓРЅРєС†РёСЋ
+            # РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РІС‹РІРѕРґРёС‚СЃСЏ СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РЅР°С‡Р°Р»Рµ РїРµС‡Р°С‚Рё С‚СЂР°РЅР·Р°РєС†РёР№
+            mock_print.assert_any_call("Р Р°СЃРїРµС‡Р°С‚С‹РІР°СЋ РёС‚РѕРіРѕРІС‹Р№ СЃРїРёСЃРѕРє С‚СЂР°РЅР·Р°РєС†РёР№...")
+            # РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РІС‹РІРѕРґРёС‚СЃСЏ РєРѕР»РёС‡РµСЃС‚РІРѕ РѕРїРµСЂР°С†РёР№
+            mock_print.assert_any_call("Р’СЃРµРіРѕ Р±Р°РЅРєРѕРІСЃРєРёС… РѕРїРµСЂР°С†РёР№ РІ РІС‹Р±РѕСЂРєРµ: 1")
+            # РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РІС‹РІРѕРґРёС‚СЃСЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ С‚СЂР°РЅР·Р°РєС†РёРё
+            mock_print.assert_any_call("\n1. 01.10.2023 РўРµСЃС‚РѕРІР°СЏ С‚СЂР°РЅР·Р°РєС†РёСЏ\nРЎС‡РµС‚ 1 -> РЎС‡РµС‚ 2\n"
+                                        "РЎСѓРјРјР°: 1000 RUB")
 
     @patch('builtins.input', side_effect=['1', 'INVALID_STATE'])
     @patch('src.utils.get_operations_info', return_value=[])
     def test_invalid_state_input(self, mock_get_operations_info):
-        # Патчим функцию print для проверки выводимых сообщений
+        # РџР°С‚С‡РёРј С„СѓРЅРєС†РёСЋ print РґР»СЏ РїСЂРѕРІРµСЂРєРё РІС‹РІРѕРґРёРјС‹С… СЃРѕРѕР±С‰РµРЅРёР№
         with patch('builtins.print') as mock_print:
-            main()  # Запускаем основную функцию
-            # Проверяем, что выводится сообщение об ошибке для недопустимого статуса
-            mock_print.assert_any_call("Статус операции 'INVALID_STATE' недоступен.")
+            main()  # Р—Р°РїСѓСЃРєР°РµРј РѕСЃРЅРѕРІРЅСѓСЋ С„СѓРЅРєС†РёСЋ
+            # РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РІС‹РІРѕРґРёС‚СЃСЏ СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ РґР»СЏ РЅРµРґРѕРїСѓСЃС‚РёРјРѕРіРѕ СЃС‚Р°С‚СѓСЃР°
+            mock_print.assert_any_call("РЎС‚Р°С‚СѓСЃ РѕРїРµСЂР°С†РёРё 'INVALID_STATE' РЅРµРґРѕСЃС‚СѓРїРµРЅ.")
 
-    @patch('builtins.input', side_effect=['1', 'EXECUTED', 'нет'])
+    @patch('builtins.input', side_effect=['1', 'EXECUTED', 'РЅРµС‚'])
     @patch('src.utils.get_operations_info', return_value=[])
     def test_no_sorting(self, mock_get_operations_info):
-        # Патчим функцию print для проверки выводимых сообщений
+        # РџР°С‚С‡РёРј С„СѓРЅРєС†РёСЋ print РґР»СЏ РїСЂРѕРІРµСЂРєРё РІС‹РІРѕРґРёРјС‹С… СЃРѕРѕР±С‰РµРЅРёР№
         with patch('builtins.print') as mock_print:
-            main()  # Запускаем основную функцию
-            # Проверяем, что выводится сообщение о том, что не найдено ни одной транзакции
-            mock_print.assert_any_call("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
+            main()  # Р—Р°РїСѓСЃРєР°РµРј РѕСЃРЅРѕРІРЅСѓСЋ С„СѓРЅРєС†РёСЋ
+            # РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РІС‹РІРѕРґРёС‚СЃСЏ СЃРѕРѕР±С‰РµРЅРёРµ Рѕ С‚РѕРј, С‡С‚Рѕ РЅРµ РЅР°Р№РґРµРЅРѕ РЅРё РѕРґРЅРѕР№ С‚СЂР°РЅР·Р°РєС†РёРё
+            mock_print.assert_any_call("РќРµ РЅР°Р№РґРµРЅРѕ РЅРё РѕРґРЅРѕР№ С‚СЂР°РЅР·Р°РєС†РёРё, РїРѕРґС…РѕРґСЏС‰РµР№ РїРѕРґ РІР°С€Рё СѓСЃР»РѕРІРёСЏ С„РёР»СЊС‚СЂР°С†РёРё")
 
 if __name__ == '__main__':
     unittest.main()
